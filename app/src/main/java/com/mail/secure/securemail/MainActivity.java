@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+      // getSupportActionBar().hide();
        //
 
         Button login = (Button) findViewById(R.id.login);
-        Button register = (Button) findViewById(R.id.register);
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +44,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Registry.class);
-                startActivity(i);
-            }
-        });
 
     }
 // عشان اذا المستخدم جديد وضغط على زر الخلف يطلعه من البرنامج

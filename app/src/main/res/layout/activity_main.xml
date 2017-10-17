@@ -1,64 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.mail.secure.securemail.MainActivity">
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/new_login_gradients">
 
-    <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <EditText
-            android:id="@+id/editText16"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText15"
-            android:layout_alignStart="@+id/editText15"
-            android:layout_below="@+id/editText15"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="@string/pass"
-            android:inputType="textPassword" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="195dp"
-            android:ems="10"
-            android:hint="@string/Email"
-            android:inputType="textEmailAddress" />
+            <!-- Here you can put your logo or brand name -->
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/login"
-            android:layout_alignBottom="@+id/login"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"
-            android:text="@string/register" />
+            <ImageView
+                android:layout_width="240dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/email_icon"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText16"
-            android:layout_alignStart="@+id/editText16"
-            android:layout_below="@+id/editText16"
-            android:layout_marginTop="22dp"
-            android:layout_weight="0.76"
-            android:text="@string/login"
-            tools:layout_editor_absoluteX="225dp"
-            tools:layout_editor_absoluteY="100dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_person_white_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColorHint="#fff"
+                tools:ignore="RtlHardcoded" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f9d7db" />
 
-    </RelativeLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColorHint="#fff"
+                tools:ignore="RtlHardcoded" />
 
-</android.support.constraint.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f9d7db" />
+
+            <Button
+                android:id="@+id/login"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/background_login"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="#f16f7d"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

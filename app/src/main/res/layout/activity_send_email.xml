@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.mail.secure.securemail.SendEmail">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_menu_send"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        tools:ignore="RtlHardcoded" />
+
     <LinearLayout
         android:layout_width="382dp"
         android:layout_height="516dp"
         android:orientation="vertical"
         android:weightSum="1"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="2dp">
+        tools:layout_editor_absoluteY="-3dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView3"
@@ -59,26 +76,12 @@
         <EditText
             android:id="@+id/smessage"
             android:layout_width="match_parent"
-            android:layout_height="279dp"
-            android:layout_weight="0.76"
+            android:layout_height="match_parent"
             android:ems="10"
             android:gravity="top"
             android:inputType="textMultiLine"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="133dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:srcCompat="@android:drawable/ic_menu_send"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="447dp" />
 
     </LinearLayout>
 
