@@ -31,13 +31,10 @@
         tools:layout_editor_absoluteY="-3dp"
         tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/textView3"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/to"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:textColorHint="#000">
 
         <EditText
             android:id="@+id/semail"
@@ -46,16 +43,16 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteY="0dp"
+            android:hint="@string/to"
+            android:padding="8dp"
+            android:textColor="#000"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView2"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/subject"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
-
+            android:textColorHint="#000">
         <EditText
             android:id="@+id/ssubject"
             android:layout_width="match_parent"
@@ -63,25 +60,30 @@
             android:ems="10"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteY="0dp"
+            android:hint="@string/subject"
+            android:padding="8dp"
+            android:textColor="#000"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/message"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="0dp" />
-
+            android:textColorHint="#000">
         <EditText
             android:id="@+id/smessage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:background="@android:color/transparent"
             android:gravity="top"
             android:inputType="textMultiLine"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="133dp" />
+            tools:layout_editor_absoluteY="133dp"
+            android:hint="@string/message"
+            android:padding="8dp"
+            android:textColor="#000"/>
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 

@@ -14,56 +14,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Here you can put your logo or brand name -->
-
             <ImageView
                 android:layout_width="240dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
-                android:padding="16dp"
-                android:layout_marginTop="48dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/email_icon"
+                android:layout_marginTop="15dp"
                 android:contentDescription=""
+                android:padding="16dp"
+                android:src="@drawable/email_64"
                 tools:ignore="ContentDescription" />
 
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_person_white_24dp"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:hint="@string/Email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColorHint="#fff"
-                tools:ignore="RtlHardcoded" />
+                android:textColorHint="#fff">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/icon_person_white_24"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp"
+                    android:textColor="#fff" />
+            </android.support.design.widget.TextInputLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#f9d7db" />
 
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_lock_white_24dp"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColorHint="#fff"
-                tools:ignore="RtlHardcoded" />
+                android:textColorHint="#fff">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/icon_lock_white_24"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="8dp"
+                    android:textColor="#fff" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -76,12 +88,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/background_login"
-                android:clickable="true"
+                android:background="@drawable/login"
                 android:padding="16dp"
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="#f16f7d"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/register"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/sinup"
+                android:padding="16dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="#fff"
                 android:textSize="18sp" />
 
         </LinearLayout>

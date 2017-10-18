@@ -12,6 +12,7 @@ public class Registry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registry);
+        getSupportActionBar().hide();  // hide top bar
         Button btrRegister = (Button) findViewById(R.id.btrRegister);
         btrRegister.setOnClickListener(new View.OnClickListener() {
             @Override

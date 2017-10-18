@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".SendEmail" />
+        <activity android:name=".SendEmail"
+            android:label="@string/send_email" />
         <activity android:name=".Registry" />
         <activity android:name=".message" />
         <activity
