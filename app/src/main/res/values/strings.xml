@@ -3,7 +3,7 @@
     <string name="Email">Email</string>
     <string name="pass">Password</string>
     <string name="login">Login</string>
-    <string name="register">Register</string>
+
     <string name="title_activity_mailbox">Mailbox</string>
     <string name="sgin_out">Sgin out</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -35,4 +35,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
 </resources>

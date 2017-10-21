@@ -48,7 +48,8 @@
                     android:hint="@string/Email"
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
-                    android:textColor="#fff" />
+                    android:textColor="#fff"
+                    tools:ignore="RtlHardcoded" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -70,10 +71,11 @@
                     android:drawableLeft="@drawable/icon_lock_white_24"
                     android:drawablePadding="12dp"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="8dp"
-                    android:textColor="#fff" />
+                    android:textColor="#fff"
+                    tools:ignore="RtlHardcoded" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +105,7 @@
                 android:layout_marginTop="24dp"
                 android:background="@drawable/sinup"
                 android:padding="16dp"
-                android:text="Register"
+                android:text="@string/register"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp" />

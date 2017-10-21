@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الإيميل الامن</string>
+    <string name="Email">الإيميل</string>
+    <string name="pass">كلمة المرور</string>
+    <string name="login">تـسجيل الدخول</string>
+    <string name="register">التــسجيل</string>
+    <string name="title_activity_mailbox">صـندوق البريد</string>
+    <string name="sgin_out">تـسجيل الخروج</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="send_email">ارسـال إيميل</string>
+    <string name="to">الـى</string>
+    <string name="subject">المـوضوع</string>
+    <string name="message">الـرسالة</string>
+    <string name="FristName">الأسـم الاول</string>
+    <string name="LastName">الأسـم الاخير</string>
+    <string name="date">التـاريخ</string>
+    <string name="PhoneNum">رقـم الجـوال</string>
+    <string name="from">مـن:</string>
+    <string name="title_activity_tabbed">صـندوق البريد</string>
+    <string name="action_settings">الأعدادت</string>
+    <string name="title_activity_login">تـسجيل الدخول</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">البـريد</string>
+    <string name="prompt_password">الرقم السري (اختياري)</string>
+    <string name="action_sign_in">تـسجيل الدخول او التسجيل</string>
+    <string name="action_sign_in_short">تـسجيل الدخول</string>
+    <string name="error_invalid_email">عنوان البريد غير صالح</string>
+    <string name="error_invalid_password">كلمـة المرور قصيرة جدا</string>
+    <string name="error_incorrect_password">كلمـة المرور غير صحيحة</string>
+    <string name="error_field_required">هذه الخانة مطلوبه</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="password">كلمـة المرور</string>
+
+</resources>
