@@ -1,23 +1,25 @@
 package com.mail.secure.securemail;
 
-import android.content.Intent;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Properties;
-
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 
 import io.realm.Realm;
 
 public class SendEmail extends AppCompatActivity {
 
-        private Realm realm;
+    private Realm realm;
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP) //for status bar -- target Api --
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +27,14 @@ public class SendEmail extends AppCompatActivity {
         setContentView(R.layout.activity_send_email);
 
         realm = Realm.getDefaultInstance();
-        final EditText semail = (EditText) findViewById(R.id.semail);
-        final EditText ssjubect = (EditText) findViewById(R.id.ssubject);
-        final EditText smessage = (EditText) findViewById(R.id.smessage);
 
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final EditText semail = (EditText) findViewById(R.id.semail);
+                final EditText ssjubect = (EditText) findViewById(R.id.ssubject);
+                final EditText smessage = (EditText) findViewById(R.id.smessage);
 
                 realm.beginTransaction();
 
@@ -47,14 +49,52 @@ public class SendEmail extends AppCompatActivity {
 
                 realm.commitTransaction();
 
-                Toast.makeText(SendEmail.this, "Done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendEmail.this, R.string.message_sent, Toast.LENGTH_SHORT).show();
                 realm.close();
                 finish();
+
             }
         });
     }
 
+    @Override
+    public void onBackPressed() //عند الضغط على زر الرجوع
+    {
+        new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
+        .setTitle(getString(R.string.attention))
+        .setTitle(getString(R.string.save_message))
+        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+                final EditText semail = (EditText) findViewById(R.id.semail);
+                final EditText ssjubect = (EditText) findViewById(R.id.ssubject);
+                final EditText smessage = (EditText) findViewById(R.id.smessage);
+                realm.beginTransaction();
 
+                Drafts_class draft = new Drafts_class();
+
+                draft.setDmessage(smessage.getText().toString());
+                draft.setDsubject(ssjubect.getText().toString());
+                draft.setDsender(semail.getText().toString());
+
+                User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
+                user.getDrafts().add(draft);
+
+                realm.commitTransaction();
+
+                Toast.makeText(SendEmail.this, R.string.message_saved_to_drafts, Toast.LENGTH_SHORT).show();
+                realm.close();
+                finish();
+            }
+        })
+        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        })
+        .show();
+    }
 
 }

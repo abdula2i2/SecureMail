@@ -19,9 +19,9 @@
     <string name="LastName">الأسـم الاخير</string>
     <string name="date">التـاريخ</string>
     <string name="PhoneNum">رقـم الجـوال</string>
-    <string name="from">مـن:</string>
+    <string name="from">مـن</string>
     <string name="title_activity_tabbed">صـندوق البريد</string>
-    <string name="action_settings">الأعدادت</string>
+    <string name="action_settings">الإعدادت</string>
     <string name="title_activity_login">تـسجيل الدخول</string>
 
     <!-- Strings related to login -->
@@ -36,6 +36,22 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="password">كلمـة المرور</string>
+    <string name="the_message">الرسالة</string>
+    <string name="settings">الإعدادات</string>
+    <string name="message_sent">تم إرسال رسالتك</string>
+    <string name="drafts">المسودات</string>
+    <string name="sent_mail"></string>
+    <string name="sent_mails">الرسائل المرسلة</string>
+    <string name="inbox">الرسائل الواردة</string>
+    <string name="registration_done">تم التسجيل</string>
+    <string name="signed_in">تم تسجيل الدخول</string>
+    <string name="logged_out">تم تسجيل الخروج</string>
+    <string name="attention">تنبيه</string>
+    <string name="save_message">هل تريد حفظ الرسالة في المسودات ؟</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="message_saved_to_drafts">تم حفظ رسالتك في المسودات</string>
+    <string name="first_name">الاسم الأول</string>
+    <string name="the_draft">المسودة</string>
 
 </resources>

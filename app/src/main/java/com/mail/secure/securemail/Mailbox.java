@@ -1,8 +1,10 @@
 package com.mail.secure.securemail;
 
+import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +19,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -47,11 +48,14 @@ public class Mailbox extends AppCompatActivity {
     private ViewPager mViewPager;
     private Realm realm;
 
-
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)  //for status bar -- target Api --
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailbox);
+
+        Mailbox.this.setTitle(R.string.title_activity_tabbed); // change the name of action bar
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -80,32 +84,52 @@ public class Mailbox extends AppCompatActivity {
             finish();
         }
     }
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> emailsubjects;
+    private ArrayAdapter<String> adapter,adapter2;
+
+    private ArrayList<String> emailsubjects,draftsubject;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_mailbox, menu);
 
-
         final ListView listEmails = (ListView)findViewById(R.id.sentemails);
+        final ListView listDrafts = (ListView)findViewById(R.id.draftemails);
+
         realm = Realm.getDefaultInstance();
 
-
         emailsubjects=new ArrayList<>();
+        draftsubject=new ArrayList<>();
+
         RealmResults<User> result= realm.where(User.class).findAll();
+        RealmResults<User> result2 = realm.where(User.class).findAll();
+
         RealmList<Emails> emails = null;
-       if (!result.isEmpty()) {
-           emails = result.first().getEmails();
-           for (Emails s : emails) {
+        RealmList<Drafts_class> drafts = null;
+
+
+
+        if (!result.isEmpty()) {
+            emails = result.first().getEmails();
+            for (Emails s : emails) {
                emailsubjects.add(s.getSubject());
            }
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, emailsubjects);
+            listEmails.setAdapter(adapter);
+        }
 
-               adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, emailsubjects);
-               listEmails.setAdapter(adapter);
 
 
-       }
+        if (!result2.isEmpty()) {
+            drafts = result2.first().getDrafts();
+            for (Drafts_class d : drafts) {
+                draftsubject.add(d.getDsubject());
+            }
+            adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, draftsubject);
+            // listDrafts.setAdapter(adapter2);
+        }
+
+
         SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -122,19 +146,32 @@ public class Mailbox extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if(newText != null && !newText.isEmpty()){
                     List<String> lstFound = new ArrayList<String>();
+                    List<String> DlstFound = new ArrayList<String>();
+
                     for(String item:emailsubjects){
                         if(item.contains(newText))
                             lstFound.add(item);
                     }
 
+                    for(String item:draftsubject){
+                        if(item.contains(newText))
+                            DlstFound.add(item);
+                    }
+
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,lstFound);
                     listEmails.setAdapter(adapter);
+                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,DlstFound);   ///////////
+                   // listDrafts.setAdapter(adapter2);
+
                 }
                 else{
-                    //if search text is null
-                    //return default
+                    // if search text is null
+                    // return default
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,emailsubjects);
                     listEmails.setAdapter(adapter);
+                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,draftsubject);  ////////
+                   // listDrafts.setAdapter(adapter2);
+
                 }
                 return true;
             }
@@ -157,7 +194,15 @@ public class Mailbox extends AppCompatActivity {
             return true;
         }
 
-       else if (id == R.id.sign_out) {
+        else if (id == R.id.settings) {
+
+            Intent intent = new Intent(Mailbox.this, settings.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        else if (id == R.id.sign_out) {
             realm = Realm.getDefaultInstance();
             RealmResults<User> result= realm.where(User.class).findAll();
             User user = result.first();
@@ -167,6 +212,7 @@ public class Mailbox extends AppCompatActivity {
             realm.commitTransaction();
 
             finish();
+            Toast.makeText(getApplicationContext(),getString(R.string.logged_out),Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -206,15 +252,19 @@ public class Mailbox extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+
             Inbox inbox= new Inbox();
             SentMail sentMail= new SentMail();
+            Drafts drafts = new Drafts();
 
             switch (position) {
                 case 0:
                     return inbox;
                 case 1:
                     return sentMail;
-               default:
+                case 2:
+                    return drafts;
+                default:
                    return null;
             }
 
@@ -222,17 +272,18 @@ public class Mailbox extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3; // number of items in the tabs
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "inbox";
+                    return getString(R.string.inbox);
                 case 1:
-                    return "sent mail";
-
+                    return getString(R.string.sent_mails);
+                case 2:
+                    return getString(R.string.drafts);
             }
             return null;
         }

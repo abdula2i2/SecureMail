@@ -4,9 +4,6 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by zeez on 10/13/2017.
- */
 
 public class User extends RealmObject {
     @PrimaryKey
@@ -14,6 +11,7 @@ public class User extends RealmObject {
     private String  password;
     private String status;
     private RealmList<Emails> emails;
+    private RealmList<Drafts_class> drafts;
 
     public String getEmail() {
         return email;
@@ -46,4 +44,14 @@ public class User extends RealmObject {
     public void setEmails(RealmList<Emails> emails) {
         this.emails = emails;
     }
+
+    public RealmList<Drafts_class> getDrafts() {   ///////////////
+        return drafts;
+    }
+
+    public void setDrafts(RealmList<Drafts_class> drafts) {
+        this.drafts = drafts;
+    }
+
+
 }

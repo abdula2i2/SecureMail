@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#FF9A1F49"
+            android:background="@color/colorAccent"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
@@ -30,9 +30,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
+            android:background="@color/White"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@android:color/background_dark" />
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/Gray" />
 
     </android.support.design.widget.AppBarLayout>
 

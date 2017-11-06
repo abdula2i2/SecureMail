@@ -1,8 +1,6 @@
 package com.mail.secure.securemail;
 
-import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by zeez on 10/7/2017.

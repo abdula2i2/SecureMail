@@ -21,21 +21,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColorHint="#fff">
+            android:textColorHint="@color/White">
 
             <EditText
                 android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/firstname_18"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:drawableLeft="@drawable/firstname_18"
-                android:hint="First Name"
-                android:background="@android:color/transparent"
+                android:hint="@string/FristName"
                 android:inputType="textPersonName"
                 android:padding="8dp"
-                android:textColor="#fff" />
+                android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -43,81 +43,84 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColorHint="#fff">
-        <EditText
-            android:id="@+id/editText5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:drawableLeft="@drawable/lastname_18"
-            android:hint="Last Name"
-            android:background="@android:color/transparent"
-            android:inputType="textPersonName"
-            android:textColor="#fff"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="12dp"
-            android:padding="8dp"  />
+            android:textColorHint="@color/White">
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/lastname_18"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/LastName"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColorHint="#fff">
-        <EditText
-            android:id="@+id/editText6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:drawableLeft="@drawable/email_18"
-            android:hint="Email"
-            android:background="@android:color/transparent"
-            android:inputType="textEmailAddress"
-            android:textColor="#fff"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="12dp"
-            android:padding="8dp"  />
+            android:textColorHint="@color/White">
+
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/email_18"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColorHint="#fff">
-        <EditText
-            android:id="@+id/editText8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:drawableLeft="@drawable/date_18"
-            android:hint="Date"
-            android:background="@android:color/transparent"
-            android:inputType="date"
-            android:textColor="#fff"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="12dp"
-            android:padding="8dp"  />
+            android:textColorHint="@color/White">
+
+            <EditText
+                android:id="@+id/editText8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/date_18"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/date"
+                android:inputType="date"
+                android:padding="8dp"
+                android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColorHint="#fff">
+            android:textColorHint="@color/White">
 
             <EditText
                 android:id="@+id/editText10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:drawablePadding="12dp"
-                android:drawableLeft="@drawable/phone_18"
-                android:ems="10"
-                android:hint="Phone Number"
                 android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/phone_18"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="@string/PhoneNum"
                 android:inputType="phone"
                 android:padding="8dp"
-                android:textColor="#fff" />
+                android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -128,9 +131,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/sinup"
             android:padding="16dp"
-            android:text="Register"
+            android:text="@string/register"
             android:textAllCaps="false"
-            android:textColor="#fff"
+            android:textColor="@color/White"
             android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

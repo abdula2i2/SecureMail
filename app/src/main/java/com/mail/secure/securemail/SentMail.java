@@ -22,8 +22,11 @@ import io.realm.RealmResults;
 
 public class SentMail extends Fragment{
 
+
+
     private Realm realm;
     private ArrayAdapter<String> adapter;
+
 // الي تحت هذا تضيفه للكود عشان ينربط مع الاكتفتي الاساسي
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +37,7 @@ public class SentMail extends Fragment{
     }
 
 // الكود الي تحت عشان يطلع الرسايل من قاعده البيانات ويعرضها ويحطها في القائمه حق الاميلات
-    @Override
+      @Override
     public void onResume() {
         super.onResume();
 

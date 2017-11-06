@@ -8,7 +8,8 @@
     android:paddingRight="18dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/new_login_gradients">
+    android:background="@drawable/new_login_gradients"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,13 +29,13 @@
                 android:layout_marginTop="15dp"
                 android:contentDescription=""
                 android:padding="16dp"
-                android:src="@drawable/email_64"
+                android:src="@drawable/icon"
                 tools:ignore="ContentDescription" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#fff">
+                android:textColorHint="@color/White">
 
                 <EditText
                     android:id="@+id/editText"
@@ -48,7 +49,7 @@
                     android:hint="@string/Email"
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/White"
                     tools:ignore="RtlHardcoded" />
             </android.support.design.widget.TextInputLayout>
 
@@ -56,12 +57,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f9d7db" />
+                android:background="@color/Light_Pink" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#fff">
+                android:textColorHint="@color/White">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -71,10 +72,10 @@
                     android:drawableLeft="@drawable/icon_lock_white_24"
                     android:drawablePadding="12dp"
                     android:ems="10"
-                    android:hint="@string/password"
+                    android:hint="@string/pass"
                     android:inputType="textPassword"
                     android:padding="8dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/White"
                     tools:ignore="RtlHardcoded" />
 
             </android.support.design.widget.TextInputLayout>
@@ -82,7 +83,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f9d7db" />
+                android:background="@color/Light_Pink" />
 
             <Button
                 android:id="@+id/login"
@@ -94,7 +95,7 @@
                 android:padding="16dp"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textColor="#f16f7d"
+                android:textColor="@color/Pink"
                 android:textSize="18sp" />
 
             <Button
@@ -107,7 +108,7 @@
                 android:padding="16dp"
                 android:text="@string/register"
                 android:textAllCaps="false"
-                android:textColor="#fff"
+                android:textColor="@color/White"
                 android:textSize="18sp" />
 
         </LinearLayout>

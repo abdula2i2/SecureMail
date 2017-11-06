@@ -4,21 +4,27 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 
 public class MainActivity extends AppCompatActivity {
+
     Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
 
+        getSupportActionBar().hide(); //hide action bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //full screen
+
+
+        Thread thread = new Thread();
 
         Button login = (Button) findViewById(R.id.login);
         Button register = (Button) findViewById(R.id.register);
@@ -48,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 realm.commitTransaction();
 
                 realm.close();
-               finish();
+                finish();
+                Toast.makeText(MainActivity.this,getString(R.string.signed_in),Toast.LENGTH_SHORT).show();
+
             }
         });
 
