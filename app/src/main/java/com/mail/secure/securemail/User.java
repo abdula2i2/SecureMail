@@ -11,7 +11,7 @@ public class User extends RealmObject {
     private String  password;
     private String status;
     private RealmList<Emails> emails;
-    private RealmList<Drafts_class> drafts;
+    private RealmList<Emails> drafts;
 
     public String getEmail() {
         return email;
@@ -45,11 +45,11 @@ public class User extends RealmObject {
         this.emails = emails;
     }
 
-    public RealmList<Drafts_class> getDrafts() {   ///////////////
+    public RealmList<Emails> getDrafts() {   ///////////////
         return drafts;
     }
 
-    public void setDrafts(RealmList<Drafts_class> drafts) {
+    public void setDrafts(RealmList<Emails> drafts) {
         this.drafts = drafts;
     }
 

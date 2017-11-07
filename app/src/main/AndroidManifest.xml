@@ -36,8 +36,6 @@
         <activity
             android:name=".settings"
             android:label="@string/settings" />
-        <activity android:name=".draft"
-            android:label="@string/the_draft"></activity>
     </application>
 
 </manifest>

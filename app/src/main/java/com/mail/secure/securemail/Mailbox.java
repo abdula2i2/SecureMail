@@ -105,7 +105,7 @@ public class Mailbox extends AppCompatActivity {
         RealmResults<User> result2 = realm.where(User.class).findAll();
 
         RealmList<Emails> emails = null;
-        RealmList<Drafts_class> drafts = null;
+        RealmList<Emails> drafts = null;
 
 
 
@@ -122,8 +122,8 @@ public class Mailbox extends AppCompatActivity {
 
         if (!result2.isEmpty()) {
             drafts = result2.first().getDrafts();
-            for (Drafts_class d : drafts) {
-                draftsubject.add(d.getDsubject());
+            for (Emails d : drafts) {
+                draftsubject.add(d.getSubject());
             }
             adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, draftsubject);
             // listDrafts.setAdapter(adapter2);
