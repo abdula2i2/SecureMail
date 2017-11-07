@@ -92,37 +92,72 @@ public class SendEmail extends AppCompatActivity {
         email.setSubject(ssjubect.getText().toString());
         email.setSender(semail.getText().toString());
 
-        RealmResults<User> result2= realm.where(User.class).findAll();
-        RealmList<Emails> drafts = result2.first().getDrafts();
+        final RealmResults<User> result2= realm.where(User.class).findAll();
+        final Emails draft;
+        if (l >= 0){
+
+            RealmList<Emails> drafts = result2.first().getDrafts();
+            draft = drafts.get(l);
+
+            if (draft.getMessage().equals(email.getMessage())) finish();
+            else {
+
+                new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
+                        .setTitle(getString(R.string.attention))
+                        .setTitle(getString(R.string.update_message))
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
 
-        new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
-        .setTitle(getString(R.string.attention))
-        .setTitle(getString(R.string.save_message))
-        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                                realm.beginTransaction();
+                                draft.setMessage(email.getMessage());
+                                realm.copyToRealmOrUpdate(result2);
+                                realm.commitTransaction();
+                                realm.close();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .show();
 
-
-                realm.beginTransaction();
-
-                User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
-                user.getDrafts().add(email);
-
-                realm.commitTransaction();
-
-                Toast.makeText(SendEmail.this,R.string.message_saved_to_drafts , Toast.LENGTH_SHORT).show();
-                realm.close();
-                finish();
             }
-        })
-        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
             }
-        })
-        .show();
+
+        if(l < 0){
+
+            new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
+            .setTitle(getString(R.string.attention))
+            .setTitle(getString(R.string.save_message))
+            .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                    realm.beginTransaction();
+
+                    User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
+                    user.getDrafts().add(email);
+
+                    realm.commitTransaction();
+
+                    Toast.makeText(SendEmail.this,R.string.message_saved_to_drafts , Toast.LENGTH_SHORT).show();
+                    realm.close();
+                    finish();
+                }
+            })
+            .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            }).show();
+          }
     }
 
 }

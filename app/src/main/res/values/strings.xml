@@ -38,6 +38,7 @@
     <string name="drafts">Drafts</string>
     <string name="attention">Attention</string>
     <string name="save_message">Do you want to save this message in the Drafts?</string>
+    <string name="update_message">Do you want to save the changes of the draft?</string>
     <string name="message_saved_to_drafts">Your message saved into the Drafts</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
