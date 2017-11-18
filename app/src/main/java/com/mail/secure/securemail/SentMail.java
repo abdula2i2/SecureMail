@@ -46,15 +46,15 @@ public class SentMail extends Fragment{
         ListView listEmails = (ListView)getView().findViewById(R.id.sentemails);
         ArrayList<String> emailsubjects=new ArrayList<>();
 
-        RealmResults<User> result= realm.where(User.class).findAll();
+        RealmResults<User> result= realm.where(User.class).findAll();// بحث في قاعدة البيانات عن اليوزر
         realm.close();
 
-        RealmList<Emails> email = result.first().getEmails();
+        RealmList<Emails> email = result.first().getEmails();// تاخذ الاميلات
         for(Emails s: email )
         {
-            emailsubjects.add(s.getSubject());
+            emailsubjects.add(s.getSubject());//تاخذ العناوين وتضيفها في المصفوفة
         }
-        if(!result.isEmpty()){
+        if(!result.isEmpty()){// تزرق المصفوفة في الادابتر
             adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,emailsubjects);
             listEmails.setAdapter(adapter);
         }
@@ -66,6 +66,7 @@ public class SentMail extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(),message.class);
                 intent.putExtra("id",position);
+                intent.putExtra("from","sentMail");// عشان يعرف كلاس مسج انها جاي من السنت ميل
                 startActivity(intent);
             }
         });

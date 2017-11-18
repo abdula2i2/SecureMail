@@ -68,19 +68,24 @@ public class SendEmail extends AppCompatActivity {
                 email.setSubject(ssjubect.getText().toString());
                 email.setSender(semail.getText().toString());
 
-                User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
+                User user = realm.where(User.class).equalTo("status", "active").findFirst();
                 user.getEmails().add(email);
+                // الي تحت هذا عشان تحط ترسل محتويات الرساله للكلاس المسؤول عن الارسال
+                SetEmails send = new SetEmails(SendEmail.this
+                        , semail.getText().toString(),
+                        ssjubect.getText().toString(),
+                        smessage.getText().toString());
+
+                send.execute();// لبدئ الارسال
 
                 realm.commitTransaction();
-
-                Toast.makeText(SendEmail.this, R.string.message_sent, Toast.LENGTH_SHORT).show();
                 realm.close();
                 finish();
 
             }
         });
     }
-    private String message;
+    //private String message;
     @Override
     public void onBackPressed() //عند الضغط على زر الرجوع
     {
@@ -141,7 +146,7 @@ public class SendEmail extends AppCompatActivity {
 
                     realm.beginTransaction();
 
-                    User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
+                    User user = realm.where(User.class).equalTo("status", "active").findFirst();
                     user.getDrafts().add(email);
 
                     realm.commitTransaction();

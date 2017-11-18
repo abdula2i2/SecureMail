@@ -102,31 +102,25 @@ public class Mailbox extends AppCompatActivity {
         draftsubject=new ArrayList<>();
 
         RealmResults<User> result= realm.where(User.class).findAll();
-        RealmResults<User> result2 = realm.where(User.class).findAll();
+
 
         RealmList<Emails> emails = null;
         RealmList<Emails> drafts = null;
 
 
-
         if (!result.isEmpty()) {
+
             emails = result.first().getEmails();
-            for (Emails s : emails) {
-               emailsubjects.add(s.getSubject());
-           }
+            drafts = result.first().getDrafts();
+
+            for (Emails s : emails) {emailsubjects.add(s.getSubject());}
+            for (Emails d : drafts) {draftsubject.add(d.getSubject());}
+
+
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, emailsubjects);
             listEmails.setAdapter(adapter);
-        }
-
-
-
-        if (!result2.isEmpty()) {
-            drafts = result2.first().getDrafts();
-            for (Emails d : drafts) {
-                draftsubject.add(d.getSubject());
-            }
             adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, draftsubject);
-            // listDrafts.setAdapter(adapter2);
+             //listDrafts.setAdapter(adapter);
         }
 
 
@@ -160,8 +154,8 @@ public class Mailbox extends AppCompatActivity {
 
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,lstFound);
                     listEmails.setAdapter(adapter);
-                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,DlstFound);   ///////////
-                   // listDrafts.setAdapter(adapter2);
+                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,DlstFound);
+                    //listDrafts.setAdapter(adapter2);
 
                 }
                 else{
@@ -169,8 +163,8 @@ public class Mailbox extends AppCompatActivity {
                     // return default
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,emailsubjects);
                     listEmails.setAdapter(adapter);
-                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,draftsubject);  ////////
-                   // listDrafts.setAdapter(adapter2);
+                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,draftsubject);
+                    //listDrafts.setAdapter(adapter2);
 
                 }
                 return true;
@@ -202,13 +196,13 @@ public class Mailbox extends AppCompatActivity {
             return true;
         }
 
-        else if (id == R.id.sign_out) {
+        else if (id == R.id.sign_out) {// اذا ضغط على تسجيل الخروج يروح يمسح من قاعدة البيانات كل شئ
             realm = Realm.getDefaultInstance();
-            RealmResults<User> result= realm.where(User.class).findAll();
+            RealmResults<User> result= realm.where(User.class).findAll(); // تدور لليوزر
             User user = result.first();
 
             realm.beginTransaction();
-            user.deleteFromRealm();
+            user.deleteFromRealm();// حذف اليوزر
             realm.commitTransaction();
 
             finish();
@@ -219,13 +213,13 @@ public class Mailbox extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onStart() {
+    protected void onStart() {// هذا عشان اول ما يفتح البرنامج ويكون ما سجل دخول يوديه على اكتفتي التسجيل
         super.onStart();
         realm = Realm.getDefaultInstance();
 
         RealmResults<User> result= realm.where(User.class).findAll();
 
-        if(result.isEmpty()) {
+        if(result.isEmpty()) { // اذا قاعده البيانات مافيها اي بيانات يروح للدخول
 
             Intent i = new Intent(Mailbox.this, MainActivity.class);
             startActivity(i);
@@ -234,11 +228,6 @@ public class Mailbox extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

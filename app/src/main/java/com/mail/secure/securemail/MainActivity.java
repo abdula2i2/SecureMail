@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
-
 import io.realm.Realm;
 
 
@@ -39,23 +37,24 @@ public class MainActivity extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {// اذا سجل دخول هنا يحفظ البيانات حقه ويحاول يسجل الدخول فيها
                 realm = Realm.getDefaultInstance();
 
-                realm.beginTransaction();
+                realm.beginTransaction();// هنا يوم يضغط تحط اليوزر حقك
 
                 User user = new User();
 
-                user.setEmail("google.com");
-                user.setPassword("sdsd");
+                user.setEmail("test2@localhost.com");
+                user.setPassword("1234");
                 user.setStatus("active");
 
                 realm.copyToRealmOrUpdate(user);
                 realm.commitTransaction();
 
                 realm.close();
-                finish();
-                Toast.makeText(MainActivity.this,getString(R.string.signed_in),Toast.LENGTH_SHORT).show();
+                GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//هنا تحاول تتصل بالاميل مع تحديد مكان الرسايل الي تبيها مثلا الانبوكس
+                getEmails.execute();
+
 
             }
         });

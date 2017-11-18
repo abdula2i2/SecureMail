@@ -6,13 +6,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.mail.secure.securemail.Drafts">
+    tools:context="com.mail.secure.securemail.Mailbox$PlaceholderFragment">
 
     <ListView
-        android:id="@+id/draftemails"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
+    android:id="@+id/draftemails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -21,6 +21,7 @@ public class message extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         int i = getIntent().getIntExtra("id",0);
+        String ii = getIntent().getStringExtra("from");
         Realm realm;
 
         TextView from = (TextView) findViewById(R.id.from);
@@ -32,7 +33,11 @@ public class message extends AppCompatActivity {
 
         RealmResults<User> result= realm.where(User.class).findAll();
 
-        RealmList<Emails> emails = result.first().getEmails();
+        RealmList<Emails> emails;
+
+        if(ii.equals("inbox")) {// هذا شرط عشان اذا المستخدم جاي من الانبوكس تاخذ رسايل الانبوكس والثاني للسنت
+            emails = result.first().getInbox();
+        }else emails = result.first().getEmails();
 
         Emails email = emails.get(i);
             from.setText(email.getSender());

@@ -12,6 +12,7 @@ public class User extends RealmObject {
     private String status;
     private RealmList<Emails> emails;
     private RealmList<Emails> drafts;
+    private RealmList<Emails> inbox;
 
     public String getEmail() {
         return email;
@@ -53,5 +54,11 @@ public class User extends RealmObject {
         this.drafts = drafts;
     }
 
+    public RealmList<Emails> getInbox() {
+        return inbox;
+    }
 
+    public void setInbox(RealmList<Emails> inbox) {
+        this.inbox = inbox;
+    }
 }
