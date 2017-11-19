@@ -3,13 +3,17 @@ package com.mail.secure.securemail;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +27,12 @@ public class SendEmail extends AppCompatActivity {
     private Emails email = new Emails();
 
 
+    Uri URI = null;
+    private static final int PICK_FROM_GALLERY = 101;
+    int columnIndex;
+    String attachmentFile;
+    final Button Attachment = (Button) findViewById(R.id.bt_attachment);
+
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) //for status bar -- target Api --
@@ -33,10 +43,13 @@ public class SendEmail extends AppCompatActivity {
         setContentView(R.layout.activity_send_email);
 
         realm = Realm.getDefaultInstance();
-         int l = getIntent().getIntExtra("idDraft",-1);
+        int l = getIntent().getIntExtra("idDraft",-1);
         final    EditText semail = (EditText) findViewById(R.id.semail);
         final    EditText ssjubect = (EditText) findViewById(R.id.ssubject);
         final    EditText smessage = (EditText) findViewById(R.id.smessage);
+
+
+
 
 
 
@@ -68,24 +81,54 @@ public class SendEmail extends AppCompatActivity {
                 email.setSubject(ssjubect.getText().toString());
                 email.setSender(semail.getText().toString());
 
-                User user = realm.where(User.class).equalTo("status", "active").findFirst();
+                User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
                 user.getEmails().add(email);
-                // الي تحت هذا عشان تحط ترسل محتويات الرساله للكلاس المسؤول عن الارسال
-                SetEmails send = new SetEmails(SendEmail.this
-                        , semail.getText().toString(),
-                        ssjubect.getText().toString(),
-                        smessage.getText().toString());
-
-                send.execute();// لبدئ الارسال
 
                 realm.commitTransaction();
+
+                Toast.makeText(SendEmail.this, R.string.message_sent, Toast.LENGTH_SHORT).show();
                 realm.close();
                 finish();
 
             }
         });
+
+        Attachment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFolder();
+            }
+        });
     }
-    //private String message;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            attachmentFile = cursor.getString(columnIndex);
+            Log.e("Attachment Path:", attachmentFile);
+            URI = Uri.parse("file://" + attachmentFile);
+            cursor.close();
+        }
+    }
+    public void openFolder()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra("return-data", true);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_GALLERY);
+    }
+
+
+
+
+
+
+    private String message;
     @Override
     public void onBackPressed() //عند الضغط على زر الرجوع
     {
@@ -132,37 +175,53 @@ public class SendEmail extends AppCompatActivity {
                         .show();
 
             }
-            }
+        }
 
         if(l < 0){
 
             new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
-            .setTitle(getString(R.string.attention))
-            .setTitle(getString(R.string.save_message))
-            .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+                    .setTitle(getString(R.string.attention))
+                    .setTitle(getString(R.string.save_message))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
 
-                    realm.beginTransaction();
+                            realm.beginTransaction();
 
-                    User user = realm.where(User.class).equalTo("status", "active").findFirst();
-                    user.getDrafts().add(email);
+                            User user = realm.where(User.class).equalTo("email", "google.com").findFirst();
+                            user.getDrafts().add(email);
 
-                    realm.commitTransaction();
+                            realm.commitTransaction();
 
-                    Toast.makeText(SendEmail.this,R.string.message_saved_to_drafts , Toast.LENGTH_SHORT).show();
-                    realm.close();
-                    finish();
-                }
-            })
-            .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            }).show();
-          }
+                            Toast.makeText(SendEmail.this,R.string.message_saved_to_drafts , Toast.LENGTH_SHORT).show();
+                            realm.close();
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
+        }
     }
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -102,6 +102,14 @@
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="133dp"
                 android:scrollbars="vertical"/>
+            <Button
+                android:id="@+id/bt_attachment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="attachment"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
