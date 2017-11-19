@@ -31,7 +31,6 @@ public class SendEmail extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 101;
     int columnIndex;
     String attachmentFile;
-    final Button Attachment = (Button) findViewById(R.id.bt_attachment);
 
 
 
@@ -49,6 +48,7 @@ public class SendEmail extends AppCompatActivity {
         final    EditText smessage = (EditText) findViewById(R.id.smessage);
 
 
+        final Button Attachment = (Button) findViewById(R.id.bt_attachment);
 
 
 
