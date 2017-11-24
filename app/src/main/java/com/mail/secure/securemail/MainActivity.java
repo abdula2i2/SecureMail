@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import io.realm.Realm;
-
+import io.realm.RealmResults;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //full screen
 
 
-        Thread thread = new Thread();
-
         Button login = (Button) findViewById(R.id.login);
         Button register = (Button) findViewById(R.id.register);
 
@@ -37,24 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {// اذا سجل دخول هنا يحفظ البيانات حقه ويحاول يسجل الدخول فيها
-                realm = Realm.getDefaultInstance();
+            public void onClick(View v) {// اذا ضغط المستخدم على لوج ان يستدعي الدالة ويرسلها ملعومات الاميل
 
-                realm.beginTransaction();// هنا يوم يضغط تحط اليوزر حقك
-
-                User user = new User();
-
-                user.setEmail("test2@localhost.com");
-                user.setPassword("1234");
-                user.setStatus("active");
-
-                realm.copyToRealmOrUpdate(user);
-                realm.commitTransaction();
-
-                realm.close();
-                GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//هنا تحاول تتصل بالاميل مع تحديد مكان الرسايل الي تبيها مثلا الانبوكس
-                getEmails.execute();
-
+                getPhoneNum phoneNum  = new getPhoneNum();
+                phoneNum.getNumber("test2@localhost.com","1234",MainActivity.this);
 
             }
         });
@@ -71,8 +55,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override//هذي عشان اذا كان فيه ملعومات في قاعدة البيانات يسجل الدخول
+    protected void onResume() {
+        super.onResume();
 
+        realm = Realm.getDefaultInstance();
+        RealmResults<User> result= realm.where(User.class).findAll();
 
-
-
+        if (!result.isEmpty()){
+            GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//هنا تحاول تتصل بالاميل مع تحديد مكان الرسايل الي تبيها مثلا الانبوكس
+             getEmails.execute();}
+    }
 }

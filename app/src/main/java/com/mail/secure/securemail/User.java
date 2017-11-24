@@ -10,9 +10,18 @@ public class User extends RealmObject {
     private String email;
     private String  password;
     private String status;
+    private String phone;
     private RealmList<Emails> emails;
     private RealmList<Emails> drafts;
     private RealmList<Emails> inbox;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getEmail() {
         return email;

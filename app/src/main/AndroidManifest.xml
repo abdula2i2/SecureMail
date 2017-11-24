@@ -36,6 +36,7 @@
         <activity
             android:name=".settings"
             android:label="@string/settings" />
+        <activity android:name=".pin_auth"></activity>
     </application>
 
 </manifest>

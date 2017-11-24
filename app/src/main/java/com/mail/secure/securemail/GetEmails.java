@@ -12,9 +12,11 @@ import android.widget.Toast;
 import com.sun.mail.imap.IMAPFolder;
 import java.io.IOException;
 import java.util.Properties;
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Store;
 
@@ -76,7 +78,7 @@ public class GetEmails extends AsyncTask<Void,Void,Void> {
         //تحديد خصائص الاتصال
         Properties properties = new Properties();
         properties.put("mail.store.protocol", "imap"); //تحديد البروتوكول
-        properties.put("mail.imap.host", "192.168.56.1");//تحديد الاميل سيرفر
+        properties.put("mail.imap.host", "192.168.1.87");//تحديد الاميل سيرفر
         properties.put("mail.imap.port", "143");//تحديد البورت
         //properties.setProperty( "mail.imaps.socketFactory.class", "com.mail.secure.securemail.MySSLSocketFactory" );// هذا عشان يحل مشكلة الشهادة
 

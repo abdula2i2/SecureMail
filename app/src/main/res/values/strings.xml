@@ -58,8 +58,6 @@
     </string>
     <string name="sent_mail"></string>
     <string name="title_activity_mailbox2">mailbox2</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
-    <string name="attachment">attachment</string>
+    <string name="submit">Submit</string>
+    <string name="pin">pin</string>
 </resources>

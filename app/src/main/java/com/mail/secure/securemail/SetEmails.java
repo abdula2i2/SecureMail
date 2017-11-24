@@ -58,8 +58,8 @@ public class SetEmails extends AsyncTask<Void,Void,Void> {
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");//كلام جرايد
             props.put("mail.smtp.starttls.enable", "true");//كلام جرايد مدري وش
-            props.put("mail.smtp.ssl.trust", "192.168.56.1");//هذي ما اتوقع منها فايده الا في النت بينز
-            props.put("mail.smtp.host", "192.168.56.1");//تحدد السيرفر
+            props.put("mail.smtp.ssl.trust", "192.168.1.87");//هذي ما اتوقع منها فايده الا في النت بينز
+            props.put("mail.smtp.host", "192.168.1.87");//تحدد السيرفر
       //  props.setProperty( "mail.smtp.socketFactory.class", "com.mail.secure.securemail.MySSLSocketFactory" ); // تحل مشكله الشهاده مع الجيميل
             props.put("mail.smtp.port", "25");// تحدد البورت
 
