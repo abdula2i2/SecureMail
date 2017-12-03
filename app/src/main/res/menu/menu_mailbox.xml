@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mail.secure.securemail.Mailbox">
     <item
-        android:id="@+id/settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/sign_out"
         android:orderInCategory="100"
         android:title="@string/sgin_out"

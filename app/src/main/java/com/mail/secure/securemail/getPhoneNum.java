@@ -11,15 +11,14 @@ import java.util.HashMap;
 
 import io.realm.Realm;
 
-/**
- * Created by zeez on 11/22/2017.
- */
+
 
 public class getPhoneNum  implements AsyncResponse {
 
-   private Context context;
+    private Context context;
     private String email;
     private String pass;
+
 public void getNumber(String email,String pass,Context context){
                 // تخزن البيانات الي ارسلها المسخدم في مخازن عشان اذا نجح الموضوع تخزنها بعدين في قاعدة البيانات
                 this.context=context;
@@ -27,7 +26,6 @@ public void getNumber(String email,String pass,Context context){
                 this.pass = pass;
                 //هنا تسوي الاتصال مع قاعدة البيانات تاخذ اليوزر والباس
                 HashMap postData = new HashMap();
-                postData.put("mobile", "android");
                 postData.put("txtUsername", email);
                 postData.put("txtPassword", pass );
 

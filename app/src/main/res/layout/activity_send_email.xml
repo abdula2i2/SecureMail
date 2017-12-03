@@ -104,14 +104,7 @@
                 android:scrollbars="vertical"/>
 
         </android.support.design.widget.TextInputLayout>
-        <Button
-            android:id="@+id/bt_attachment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/attachment"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+
 
     </LinearLayout>
 

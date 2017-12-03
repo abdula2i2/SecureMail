@@ -80,7 +80,6 @@ public class GetEmails extends AsyncTask<Void,Void,Void> {
         properties.put("mail.store.protocol", "imap"); //تحديد البروتوكول
         properties.put("mail.imap.host", "192.168.1.87");//تحديد الاميل سيرفر
         properties.put("mail.imap.port", "143");//تحديد البورت
-        //properties.setProperty( "mail.imaps.socketFactory.class", "com.mail.secure.securemail.MySSLSocketFactory" );// هذا عشان يحل مشكلة الشهادة
 
         try
 
@@ -112,6 +111,7 @@ public class GetEmails extends AsyncTask<Void,Void,Void> {
             realm.close();// تقفل قاعدة البيانات
             folder.close(true);// تقفل اتصالك
             store.close();
+
             this.success = true; // معناها نجح وراح يطلع رسالة انه دخل
 
         } catch (MessagingException | IOException e) {

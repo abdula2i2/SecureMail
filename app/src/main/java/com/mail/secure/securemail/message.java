@@ -24,7 +24,7 @@ public class message extends AppCompatActivity {
         String ii = getIntent().getStringExtra("from");
         Realm realm;
 
-        TextView from = (TextView) findViewById(R.id.from);
+        TextView to = (TextView) findViewById(R.id.from);
         TextView subject = (TextView) findViewById(R.id.subject);
         TextView messageb = (TextView) findViewById(R.id.messageb);
 
@@ -40,7 +40,7 @@ public class message extends AppCompatActivity {
         }else emails = result.first().getEmails();
 
         Emails email = emails.get(i);
-            from.setText(email.getSender());
+            to.setText(email.getSender());
             subject.setText(email.getSubject());
             messageb.setText(email.getMessage());
 

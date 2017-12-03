@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,9 @@ public class pin_auth extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_auth);
 
+        getSupportActionBar().hide();  // hide top bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //full screen
+
         etxtPhoneCode = (EditText) findViewById(R.id.pin);
 //الدلة الي تحت الي فهمته منها انه اذا كان مسجل المستخدم وحاول يستجل مره ثانيه يقوله انت مسجل ويخرج
         mAuth = FirebaseAuth.getInstance();
@@ -50,6 +54,7 @@ public class pin_auth extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser() != null) {
                     Toast.makeText(pin_auth.this, "now_logged_in"+ firebaseAuth.getCurrentUser().getProviderId(), Toast.LENGTH_SHORT).show();
                     finish();
+
                 }
             }
         };
@@ -60,6 +65,7 @@ public class pin_auth extends AppCompatActivity {
     public void requestCode() {//هذي الدالة تجيب رقم الجوال من قاعدة البيانات وتسوي طلب للرقم التحقق فيه
        //هنا تاخذ من قاعدة البيانات الرقم حق الجوال وتطحه في المخزن فون نمبر
         Realm realm = Realm.getDefaultInstance();
+
         User user = realm.where(User.class).equalTo("status", "active").findFirst();
         String phoneNumber = user.getPhone();
 

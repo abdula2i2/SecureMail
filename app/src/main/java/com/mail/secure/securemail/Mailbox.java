@@ -188,14 +188,6 @@ public class Mailbox extends AppCompatActivity {
             return true;
         }
 
-        else if (id == R.id.settings) {
-
-            Intent intent = new Intent(Mailbox.this, settings.class);
-            startActivity(intent);
-
-            return true;
-        }
-
         else if (id == R.id.sign_out) {// اذا ضغط على تسجيل الخروج يروح يمسح من قاعدة البيانات كل شئ
             realm = Realm.getDefaultInstance();
             RealmResults<User> result= realm.where(User.class).findAll(); // تدور لليوزر

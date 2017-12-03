@@ -38,7 +38,7 @@
                 android:textColorHint="@color/White">
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/email_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="70dp"
@@ -65,6 +65,7 @@
                 android:textColorHint="@color/White">
 
                 <EditText
+                    android:id="@+id/pass_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

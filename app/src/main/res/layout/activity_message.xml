@@ -28,10 +28,9 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/from"
-            android:textSize="14sp"
+            android:text="@string/to"
             android:textColor="@color/colorAccent"
-             />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/from"

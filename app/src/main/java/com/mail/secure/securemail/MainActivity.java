@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -22,8 +27,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //full screen
 
 
+        final EditText email = (EditText)findViewById(R.id.email_edt);
+        final EditText pass = (EditText)findViewById(R.id.pass_edt);
         Button login = (Button) findViewById(R.id.login);
         Button register = (Button) findViewById(R.id.register);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,13 +40,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {// اذا ضغط المستخدم على لوج ان يستدعي الدالة ويرسلها ملعومات الاميل
 
+                String getEmail = email.getText().toString();
+                String getPass = pass.getText().toString();
+
                 getPhoneNum phoneNum  = new getPhoneNum();
-                phoneNum.getNumber("test2@localhost.com","1234",MainActivity.this);
+                phoneNum.getNumber(getEmail,getPass,MainActivity.this);
 
             }
         });
@@ -66,4 +76,5 @@ public class MainActivity extends AppCompatActivity {
             GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//هنا تحاول تتصل بالاميل مع تحديد مكان الرسايل الي تبيها مثلا الانبوكس
              getEmails.execute();}
     }
+
 }
