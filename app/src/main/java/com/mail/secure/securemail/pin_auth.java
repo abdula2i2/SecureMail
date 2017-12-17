@@ -1,6 +1,5 @@
 package com.mail.secure.securemail;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,9 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -18,9 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-
 import java.util.concurrent.TimeUnit;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -46,7 +41,6 @@ public class pin_auth extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN); //full screen
 
         etxtPhoneCode = (EditText) findViewById(R.id.pin);
-//الدلة الي تحت الي فهمته منها انه اذا كان مسجل المستخدم وحاول يستجل مره ثانيه يقوله انت مسجل ويخرج
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -59,33 +53,31 @@ public class pin_auth extends AppCompatActivity {
             }
         };
 
-        requestCode();// هذا استدعاء لدالة الي تجيب رقم التحقق
+        requestCode();
     }
 
-    public void requestCode() {//هذي الدالة تجيب رقم الجوال من قاعدة البيانات وتسوي طلب للرقم التحقق فيه
-       //هنا تاخذ من قاعدة البيانات الرقم حق الجوال وتطحه في المخزن فون نمبر
+    public void requestCode() {
         Realm realm = Realm.getDefaultInstance();
 
         User user = realm.where(User.class).equalTo("status", "active").findFirst();
         String phoneNumber = user.getPhone();
 
-        //تحت كلها دالة التحقق تحط فيها الرقم والوقت حق الانتطار والاكتفتي الي انت فيها الاخيره اعمل نفسك ميت
-        //الدوال الي تحت اتوقع لكل حالة دالة
+
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber, 60, TimeUnit.SECONDS, pin_auth.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    @Override//اتوقع هذي تاخذ الرقم من الرسالة تلقائيا
+                    @Override
                     public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                         //Called if it is not needed to enter verification code
                         signInWithCredential(phoneAuthCredential);
                     }
 
-                    @Override// هذي اذا صارت مشكلة في التحقق مثلا الرقم او اذا مشغل البرنامج من محاكي وغيرها
+                    @Override
                     public void onVerificationFailed(FirebaseException e) {
                         //incorrect phone number, verification code, emulator, etc.
                         Toast.makeText(pin_auth.this, "onVerificationFailed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override//تحفظ الايدي حق التحقق عشان تستخدمه في دالة التحقق
+                    @Override
                     public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         //now the code has been sent, save the verificationId we may need it
                         super.onCodeSent(verificationId, forceResendingToken);
@@ -93,7 +85,7 @@ public class pin_auth extends AppCompatActivity {
                         mVerificationId = verificationId;
                     }
 
-                    @Override//اذا صارت مشكلة تاخر  يمكن
+                    @Override
                     public void onCodeAutoRetrievalTimeOut(String verificationId) {
                         //called after timeout if onVerificationCompleted has not been called
                         super.onCodeAutoRetrievalTimeOut(verificationId);
@@ -102,22 +94,22 @@ public class pin_auth extends AppCompatActivity {
                 }
         );
     }
-//الدالة الي تحت هي دالة التحقق وهي الزبدة ياخذ الكود الي دخله اليوزر ويتحقق منه اذا صح او لا
+
     private void signInWithCredential(PhoneAuthCredential phoneAuthCredential) {
         mAuth.signInWithCredential(phoneAuthCredential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {//هنا اذا صح الكود تطلع هالرسالة
+                        if (task.isSuccessful()) {
                             Toast.makeText(pin_auth.this, "signed success", Toast.LENGTH_SHORT).show();
-                        } else {//اذا غلط ويطلع له رسالة غلط يبو
+                        } else {
                             Toast.makeText(pin_auth.this, "sign fail" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    @Override// هذي الدالة لو المستخدم ما سجل دخولة وضغط تراجع يحذف البيانات
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
 
@@ -131,7 +123,7 @@ public class pin_auth extends AppCompatActivity {
 
     }
 
-    public void submit(View view) {//  هذي اذا ضغط على زر السب مت يتحقق اذا مب فاضي الفراغ ويستعدي دالة التحقق
+    public void submit(View view) {
         String code = etxtPhoneCode.getText().toString();
         if (TextUtils.isEmpty(code))
             return;

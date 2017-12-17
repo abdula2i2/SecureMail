@@ -7,11 +7,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
-
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,9 +35,9 @@ public class Registry extends AppCompatActivity {
                 String getPass = pass.getText().toString();
                 String getPhone = phone.getText().toString();
 
-                if(      analyser(getPhone,"phone")// اذا رقم التلفون صحيح بيسجل البيانات
-                        &&analyser(getEmail,"email")// اذا الاميل  صحيح بيسجلw البيانات
-                        &&!getPass.isEmpty()               )// الباسورد مب فاضي
+                if(      analyser(getPhone,"phone")// check phone number format
+                        &&analyser(getEmail,"email")// check email format
+                        &&!getPass.isEmpty()               )// not empty password
                 {
 
                     userInfo userinfo = new userInfo();
@@ -53,10 +48,10 @@ public class Registry extends AppCompatActivity {
         });
     }
 
-    public  boolean analyser(String input, String type){ // تعطيه المدخلات مع نوعها رقم او اميلي بعدين يقارن
+    public  boolean analyser(String input, String type){ // check if the format correct
 
-        String emailptrn = "^([a-zA-Z]{1}[0-9a-zA-Z_]{0,15})$";// هنا يتاكد بس من انه يبدا بحرف والباقي مافيه خرابيط زي * و ""
-        String phoneptrn = "^(\\+966{1}[0-9]{9})$";// يتاكد من الرقم يبدا بـ699 ويكون بعدها 9 ارقام
+        String emailptrn = "^([a-zA-Z]{1}[0-9a-zA-Z_]{0,15})$";// to make sure email start with letter and have no ;./@!$%
+        String phoneptrn = "^(\\+966{1}[0-9]{9})$";// check phone number format start with +966 and have 9 numbers
         String exprtion =null;
 
         if (type.equals("email"))exprtion = emailptrn;
@@ -66,10 +61,10 @@ public class Registry extends AppCompatActivity {
         Pattern checkRegex = Pattern.compile(exprtion);
         Matcher regexMatcher = checkRegex.matcher( input );
 
-        if(regexMatcher.find())return true; // اذا طابق يقوله مزبوط
+        if(regexMatcher.find())return true; // return true
 
 
-        return false; // اذا ما كان فيه ماتش يرجع خطاء
+        return false;
     }
 
 }

@@ -3,21 +3,13 @@ package com.mail.secure.securemail;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -40,7 +32,7 @@ public class SendEmail extends AppCompatActivity {
         final    EditText ssjubect = (EditText) findViewById(R.id.ssubject);
         final    EditText smessage = (EditText) findViewById(R.id.smessage);
 
-        // اذا جا من الدرافت ياخذ القيم حقه الاميل الدرافت ويحطها في خانات الكتابه
+        // if come from drafts
         if (l >= 0){
 
             RealmResults<User> result2= realm.where(User.class).findAll();
@@ -79,7 +71,7 @@ public class SendEmail extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() //عند الضغط على زر الرجوع
+    public void onBackPressed() //when user press back
     {
         int l = getIntent().getIntExtra("idDraft",-1);
         final    EditText semail = (EditText) findViewById(R.id.semail);
@@ -99,7 +91,7 @@ public class SendEmail extends AppCompatActivity {
             if (draft.getMessage().equals(email.getMessage())) finish();
             else {
 
-                new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
+                new AlertDialog.Builder(SendEmail.this) //warning messages
                         .setTitle(getString(R.string.attention))
                         .setTitle(getString(R.string.update_message))
                         .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -128,7 +120,7 @@ public class SendEmail extends AppCompatActivity {
 
         if(l < 0){
 
-            new AlertDialog.Builder(SendEmail.this) //رسالة تنبيه
+            new AlertDialog.Builder(SendEmail.this) //warning message
                     .setTitle(getString(R.string.attention))
                     .setTitle(getString(R.string.save_message))
                     .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {

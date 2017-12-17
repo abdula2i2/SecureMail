@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,10 +21,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -47,6 +44,9 @@ public class Mailbox extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private Realm realm;
+    private ArrayAdapter<String> adapter,adapter2;
+    private ArrayList<String> emailsubjects,draftsubject;
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)  //for status bar -- target Api --
     @Override
@@ -68,9 +68,12 @@ public class Mailbox extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-/// كل الي فوق كود من نفس الاندرويد ستوديو عشان يزبط الصفحات
+// above from android studio to setup the pages in Mailbox
+
+
         Realm.init(getApplicationContext());
-// ال بعده هذا عشان يحول الزر حق الرسايل لين الصفحه الي بعدها
+
+//set up send email button the sendEmail activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +82,13 @@ public class Mailbox extends AppCompatActivity {
                 startActivity(i);
             }
         });
- // هذا الشرط عشان اذا جاء اذا ضغط المستخدم رجوع من صفحه التسجيل يخرج من البرنامج
+
+ // if user press back button will make the application close
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         }
     }
-    private ArrayAdapter<String> adapter,adapter2;
 
-    private ArrayList<String> emailsubjects,draftsubject;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,7 +96,7 @@ public class Mailbox extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_mailbox, menu);
 
         final ListView listEmails = (ListView)findViewById(R.id.sentemails);
-        final ListView listDrafts = (ListView)findViewById(R.id.draftemails);
+
 
         realm = Realm.getDefaultInstance();
 
@@ -103,24 +105,17 @@ public class Mailbox extends AppCompatActivity {
 
         RealmResults<User> result= realm.where(User.class).findAll();
 
-
         RealmList<Emails> emails = null;
-        RealmList<Emails> drafts = null;
-
 
         if (!result.isEmpty()) {
 
             emails = result.first().getEmails();
-            drafts = result.first().getDrafts();
 
             for (Emails s : emails) {emailsubjects.add(s.getSubject());}
-            for (Emails d : drafts) {draftsubject.add(d.getSubject());}
-
 
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, emailsubjects);
             listEmails.setAdapter(adapter);
-            adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, draftsubject);
-             //listDrafts.setAdapter(adapter);
+
         }
 
 
@@ -140,22 +135,14 @@ public class Mailbox extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if(newText != null && !newText.isEmpty()){
                     List<String> lstFound = new ArrayList<String>();
-                    List<String> DlstFound = new ArrayList<String>();
 
                     for(String item:emailsubjects){
                         if(item.contains(newText))
                             lstFound.add(item);
                     }
 
-                    for(String item:draftsubject){
-                        if(item.contains(newText))
-                            DlstFound.add(item);
-                    }
-
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,lstFound);
                     listEmails.setAdapter(adapter);
-                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,DlstFound);
-                    //listDrafts.setAdapter(adapter2);
 
                 }
                 else{
@@ -163,8 +150,6 @@ public class Mailbox extends AppCompatActivity {
                     // return default
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,emailsubjects);
                     listEmails.setAdapter(adapter);
-                    ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,draftsubject);
-                    //listDrafts.setAdapter(adapter2);
 
                 }
                 return true;
@@ -188,13 +173,14 @@ public class Mailbox extends AppCompatActivity {
             return true;
         }
 
-        else if (id == R.id.sign_out) {// اذا ضغط على تسجيل الخروج يروح يمسح من قاعدة البيانات كل شئ
+        // if user press in sign out will delete his info from Realm
+        else if (id == R.id.sign_out) {
             realm = Realm.getDefaultInstance();
-            RealmResults<User> result= realm.where(User.class).findAll(); // تدور لليوزر
+            RealmResults<User> result= realm.where(User.class).findAll(); // search for user
             User user = result.first();
 
             realm.beginTransaction();
-            user.deleteFromRealm();// حذف اليوزر
+            user.deleteFromRealm();// delete the user
             realm.commitTransaction();
 
             finish();
@@ -205,13 +191,13 @@ public class Mailbox extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onStart() {// هذا عشان اول ما يفتح البرنامج ويكون ما سجل دخول يوديه على اكتفتي التسجيل
+    protected void onStart() {// if user open application without sgin in will let him go to sgin in activity
         super.onStart();
         realm = Realm.getDefaultInstance();
 
         RealmResults<User> result= realm.where(User.class).findAll();
 
-        if(result.isEmpty()) { // اذا قاعده البيانات مافيها اي بيانات يروح للدخول
+        if(result.isEmpty()) { // if the restult is empty will let user got to sgin in activity
 
             Intent i = new Intent(Mailbox.this, MainActivity.class);
             startActivity(i);

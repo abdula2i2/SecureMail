@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {// اذا ضغط المستخدم على لوج ان يستدعي الدالة ويرسلها ملعومات الاميل
+            public void onClick(View v) {// if user press login will take his info and call getPhoneNum with info
 
                 String getEmail = email.getText().toString();
                 String getPass = pass.getText().toString();
@@ -55,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-// عشان اذا المستخدم جديد وضغط على زر الخلف يطلعه من البرنامج
+
+    //if user press back when in login activity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override//هذي عشان اذا كان فيه ملعومات في قاعدة البيانات يسجل الدخول
+    @Override//if there information in realm database will let user to login
     protected void onResume() {
         super.onResume();
 
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         RealmResults<User> result= realm.where(User.class).findAll();
 
         if (!result.isEmpty()){
-            GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//هنا تحاول تتصل بالاميل مع تحديد مكان الرسايل الي تبيها مثلا الانبوكس
+            GetEmails getEmails = new GetEmails(MainActivity.this,"inbox");//try to connect to email
              getEmails.execute();}
     }
 

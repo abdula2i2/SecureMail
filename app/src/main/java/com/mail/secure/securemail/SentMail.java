@@ -16,9 +16,7 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 
-/**
- * Created by zeez on 10/8/2017.
- */
+
 
 public class SentMail extends Fragment{
 
@@ -27,7 +25,7 @@ public class SentMail extends Fragment{
     private Realm realm;
     private ArrayAdapter<String> adapter;
 
-// الي تحت هذا تضيفه للكود عشان ينربط مع الاكتفتي الاساسي
+    //this code to link this page with mailbox
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,8 +34,8 @@ public class SentMail extends Fragment{
         return rootView;
     }
 
-// الكود الي تحت عشان يطلع الرسايل من قاعده البيانات ويعرضها ويحطها في القائمه حق الاميلات
-      @Override
+    // getting Emails from Realm database and but it in the sent page ListView
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -46,27 +44,27 @@ public class SentMail extends Fragment{
         ListView listEmails = (ListView)getView().findViewById(R.id.sentemails);
         ArrayList<String> emailsubjects=new ArrayList<>();
 
-        RealmResults<User> result= realm.where(User.class).findAll();// بحث في قاعدة البيانات عن اليوزر
+        RealmResults<User> result= realm.where(User.class).findAll();// search for user in realm
         realm.close();
 
-        RealmList<Emails> email = result.first().getEmails();// تاخذ الاميلات
+        RealmList<Emails> email = result.first().getEmails();// get the emails from realm
         for(Emails s: email )
         {
-            emailsubjects.add(s.getSubject());//تاخذ العناوين وتضيفها في المصفوفة
+            emailsubjects.add(s.getSubject());//take subject from realm and add it to arrayList
         }
-        if(!result.isEmpty()){// تزرق المصفوفة في الادابتر
+        if(!result.isEmpty()){// if the array not empty set it in the adapter
             adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,emailsubjects);
-            listEmails.setAdapter(adapter);
+            listEmails.setAdapter(adapter);// set the adapter to ListView
         }
 
 
-//الكود الي تحت عشان اذا ضغط المستخدم على اي ايتم من القائمه يفتح له الرساله
+//Display email in message activty when user click on the email
         listEmails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(),message.class);
                 intent.putExtra("id",position);
-                intent.putExtra("from","sentMail");// عشان يعرف كلاس مسج انها جاي من السنت ميل
+                intent.putExtra("from","sentMail");//to let class message this email from inbox email
                 startActivity(intent);
             }
         });

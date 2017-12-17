@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -23,7 +21,8 @@ public class Drafts extends Fragment {
     private Realm realm;
     private ArrayAdapter<String> adapter;
 
-    // الي تحت هذا تضيفه للكود عشان ينربط مع الاكتفتي الاساسي
+
+    //this code to link this page with mailbox
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,8 +31,8 @@ public class Drafts extends Fragment {
         return rootView;
     }
 
-    // الكود الي تحت عشان يطلع الرسايل من قاعده البيانات ويعرضها ويحطها في القائمه حق الاميلات
 
+    // getting Emails from Realm database and but it in the drafts page ListView
     @Override
     public void onResume() {
         super.onResume();
@@ -58,8 +57,7 @@ public class Drafts extends Fragment {
         }
 
 
-//الكود الي تحت عشان اذا ضغط المستخدم على اي ايتم من القائمه يفتح له الرساله
-
+        //Display email in SendEmail activty when user click on the email
         listDrafts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

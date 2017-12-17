@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SecureMail.iml" filepath="$PROJECT_DIR$/SecureMail.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\abdulaziz\Desktop\SecureMail-master-\SecureMail\app\app.iml" filepath="C:\Users\abdulaziz\Desktop\SecureMail-master-\SecureMail\app\app.iml" />
     </modules>
   </component>
 </project>

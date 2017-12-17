@@ -5,8 +5,6 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
-
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -35,9 +33,9 @@ public class message extends AppCompatActivity {
 
         RealmList<Emails> emails;
 
-        if(ii.equals("inbox")) {// هذا شرط عشان اذا المستخدم جاي من الانبوكس تاخذ رسايل الانبوكس والثاني للسنت
+        if(ii.equals("inbox")) {// if user come from inbox will take the email form inbox
             emails = result.first().getInbox();
-        }else emails = result.first().getEmails();
+        }else emails = result.first().getEmails(); //if he come from sent
 
         Emails email = emails.get(i);
             to.setText(email.getSender());

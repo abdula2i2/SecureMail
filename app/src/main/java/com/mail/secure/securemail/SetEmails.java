@@ -1,10 +1,6 @@
 package com.mail.secure.securemail;
 
-/**
- * Created by zeez on 10/25/2017.
- */
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -20,8 +16,7 @@ import javax.mail.internet.MimeMessage;
 import io.realm.Realm;
 
 public class SetEmails extends AsyncTask<Void,Void,Void> {
-//    private static final String email_id = "msaproj@gmail.com";
-//    private static final String password = ".1234567";
+
     private String content, to, subject;
     private Context context;
     private Realm realm;
@@ -40,7 +35,7 @@ public class SetEmails extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //اظهار رسالة على حسب اذا نجح او اذا وصل للكاتش
+        //show a toast if messages sent or not
         if (success){
         Toast.makeText(context, "Message sent", Toast.LENGTH_LONG).show();}
         else Toast.makeText(context, "Message Failed", Toast.LENGTH_LONG).show();
@@ -49,20 +44,20 @@ public class SetEmails extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
+        // take email and password from database
         realm = Realm.getDefaultInstance();
-        // تاخذ من قاعده البيانات الايوزر والباسورد وتحطهم في مخازن فاينل عشان الاتصال
         User user = realm.where(User.class).equalTo("status", "active").findFirst();
         final String email_id = user.getEmail();
         final String password = user.getPassword();
 
             Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");//كلام جرايد
-            props.put("mail.smtp.starttls.enable", "true");//كلام جرايد مدري وش
-            props.put("mail.smtp.ssl.trust", "192.168.1.87");//هذي ما اتوقع منها فايده الا في النت بينز
-            props.put("mail.smtp.host", "192.168.1.87");//تحدد السيرفر
-            props.put("mail.smtp.port", "25");// تحدد البورت
+            props.put("mail.smtp.auth", "true");//for auth
+            props.put("mail.smtp.starttls.enable", "true");//for TLS secure connection
+//            props.put("mail.smtp.ssl.trust", "192.168.1.87");//for Netbeans and SSL
+            props.put("mail.smtp.host", "192.168.1.87");//set the email server
+            props.put("mail.smtp.port", "25");// set the port
 
-            // يحاول يسوي اتصال باليوزر والباسورد
+            // get session with email and password
             Session session = Session.getInstance(props,
                     new javax.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
@@ -71,21 +66,21 @@ public class SetEmails extends AsyncTask<Void,Void,Void> {
                     });
 
             try {
-                // اذا قبل الاتصال تسوي رساله بالاتصال اذا مشى
+                // set a new message
                 Message message = new MimeMessage(session);
 
-                // تحدد الاميل الي مرسله منه الرسالة
+                // set email from
                 message.setFrom(new InternetAddress(email_id));
 
-                // Set To: header field of the header. مدري كلام كويس
+                // Set To: header field of the header
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse(to));
 
-                message.setSubject(subject);// العنوان
-                message.setText(content);// المحتوى الي هو الرسالة
-                Transport.send(message);// بدأ الارسال
+                message.setSubject(subject);// subject
+                message.setText(content);//content
+                Transport.send(message);// try to send the message
 
-            } catch (MessagingException e) {this.success = false; // اذا صارت مشكلة يجي هنا ويغير القيمه عشان فوق تطلع رساله انه لم يتم الارسال
+            } catch (MessagingException e) {this.success = false; // if the code get to catch and fail to send change the value to false
                      e.printStackTrace();
             }
 

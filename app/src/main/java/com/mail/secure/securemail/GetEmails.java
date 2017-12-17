@@ -1,14 +1,11 @@
 package com.mail.secure.securemail;
 
-/**
- * Created by zeez on 10/25/2017.
- */
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
 import com.sun.mail.imap.IMAPFolder;
 import java.io.IOException;
 import java.util.Properties;
@@ -24,13 +21,12 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class GetEmails extends AsyncTask<Void,Void,Void> {
-   // private static final String email_id = "msaproj@gmail.com";
-   // private static final String password = ".1234567";
+
     private ProgressDialog progressDialog;
     private Context context;
     private Realm realm;
-    private String folder;//هذا عشان تحدد القسم الي بتاخذ منه الرسايل
-    private boolean success;// عشان اذا نجح يقفل الاكتفتي واذا فشل يمسح البيانات حق الدخول
+    private String folder;// to set the folder will take emails from
+    private boolean success;// if the code finish without Error will let user go to mailbox
 
     public GetEmails(Context context , String folder) {
         this.context = context;
@@ -42,19 +38,19 @@ public class GetEmails extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //هذا عشان يطلع للمستخدم وقت محاوله تسجيل الدخول
+        //Display dialog for user to wait
       progressDialog = ProgressDialog.show(context,"signing in  ","Please wait...",false,false);
 
     }
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //هنا عشان يوقف شاشة التحميل ويقرر يوديه للميل بوكس او يمسح البيانات الخطاء الي سجلها
+        //if user have no problem to login will let him go to mailbox
         progressDialog.dismiss();
         if (this.success){
-            ((Activity)context).finish();// عشان يقفل الاكتفتي ويروح لين الميل بوكس
+            ((Activity)context).finish();// to close the login activity and go mailbox
         }
-        else {// تمسح البيانات الخطاء الي دخلها المستخدم وتطلع له رساله
+        else {// if the user have a problems in login will delete his information form Realm and show a failed message
             realm = Realm.getDefaultInstance();
             RealmResults<User> result = realm.where(User.class).findAll();
             User user = result.first();
@@ -72,50 +68,49 @@ public class GetEmails extends AsyncTask<Void,Void,Void> {
 
         realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("status", "active").findFirst();
-        final String email_id = user.getEmail(); // تاخذ الاسم واليوزر وتحفظهم في مخازن فاينل للاتصال
-        final String password = user.getPassword();
+        final String email_id = user.getEmail(); // take email info from Realm database
+        final String password = user.getPassword(); // take password from Realm database
 
         //تحديد خصائص الاتصال
         Properties properties = new Properties();
-        properties.put("mail.store.protocol", "imap"); //تحديد البروتوكول
-        properties.put("mail.imap.host", "192.168.1.87");//تحديد الاميل سيرفر
-        properties.put("mail.imap.port", "143");//تحديد البورت
+        properties.put("mail.store.protocol", "imap"); //set the protocol
+        properties.put("mail.imap.host", "192.168.1.87");//set the email server
+        properties.put("mail.imap.port", "143");//set the port
 
         try
 
-        {   // محاولة الاتصال بالاميل سيرفر
+        {   // try connect to the email server
             Session session = Session.getDefaultInstance(properties, null);
             Store store = session.getStore("imap");
             store.connect(email_id, password);
-            IMAPFolder folder = (IMAPFolder) store.getFolder(this.folder);//هنا تحدد القسم الي بتاخذ منه الرسايل مثلا الانبوكس
+            IMAPFolder folder = (IMAPFolder) store.getFolder(this.folder);//set the folder we will take emails from like inbox
             folder.open(Folder.READ_ONLY);
 
 
-            int messageCount = folder.getMessageCount(); // تطلع عدد الرسائل
+            int messageCount = folder.getMessageCount(); // to store number of the messages
 
             Emails email = new Emails();
             realm.beginTransaction();
-            //تاخذ الاميلات وتخزنها في قاعدة البيانات
+            //add emails to from messages folder to Realm Database
             for (int i = 1; i <= messageCount; i++) {
 
                 Message m = folder.getMessage(i);
-//                BodyPart bp = ((Multipart) m.getContent()).getBodyPart(0); هذا مع اميلات قوقل يزبط
+//              BodyPart bp = ((Multipart) m.getContent()).getBodyPart(0); this is for gmail
                 email.setMessage(m.getContent().toString());
                 email.setSubject(m.getSubject().toString());
                 email.setSender(m.getFrom()[0].toString());
                 user.getInbox().add(email);
 
             }
-            realm.copyToRealmOrUpdate(user);// بعد ما تاخذ كل الاميلات توديها في قاعدة البيانات
+            realm.copyToRealmOrUpdate(user);//to save the new emails to realm
             realm.commitTransaction();
-            realm.close();// تقفل قاعدة البيانات
-            folder.close(true);// تقفل اتصالك
+            realm.close();// close connection to realm
+            folder.close(true);// close to folder connection
             store.close();
 
-            this.success = true; // معناها نجح وراح يطلع رسالة انه دخل
-
+            this.success = true; // if the code got to here means it success
         } catch (MessagingException | IOException e) {
-            e.printStackTrace();this.success = false; // اذا جاء للكاتش معناها انه ما دخل فا بتطلع رسالة انه فشل في الدخول
+            e.printStackTrace();this.success = false; //if the code got to catch that means its fail then set to false
              }
 
             return null;

@@ -55,7 +55,7 @@
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="@string/pass"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/White" />
         </android.support.design.widget.TextInputLayout>
